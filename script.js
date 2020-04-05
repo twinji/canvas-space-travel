@@ -2,6 +2,10 @@
 const WIDTH = window.innerWidth, 
       HEIGHT = window.innerHeight;
 
+var starCount = 100;
+
+var starDis, starSize;
+
 window.onload = function(e) {
 
     // canvas setup
@@ -22,7 +26,16 @@ window.onload = function(e) {
     window.requestAnimationFrame(loop, canvas);
 }
 
-function init(c) {}
+function init(c) {
+
+    starDis = new Array(starCount);
+    starSize = new Array(starSize);
+    for (var i = 0; i < starCount; i++) {
+        starDis[i] = Math.random() * WIDTH;
+        starSize[i] = Math.random() * WIDTH;
+    }
+
+}
 
 function update() {}
 
