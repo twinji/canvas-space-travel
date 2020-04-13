@@ -2,15 +2,14 @@
 const WIDTH = window.innerWidth, 
       HEIGHT = window.innerHeight;
 
-var starCount = 1000,
-    maxStarRadius = 20,
-    maxStarRate = .05;
+var starCount = 20000;
 
 var starDis, 
     starRadius, 
     starAngle, 
     starRate,
-    starAlpha;
+    starAlpha,
+    starMaxAlpha;
 
 window.onload = function(e) {
 
@@ -40,6 +39,7 @@ function init(c) {
     starRate = new Array(starCount);
     starAngle = new Array(starCount);
     starAlpha = new Array(starCount);
+    starMaxAlpha = new Array(starCount);
 
     // initialize stars
     for (var i = 0; i < starCount; i++) {
@@ -52,9 +52,12 @@ function update() {
 
     for (var i = 0; i < starCount; i++) {
  
-        starRadius[i] *= 1 + starRate[i] / 10;
+        starRadius[i] *= 1 + starRate[i] * .001;
         starDis[i] *= 1 + starRate[i];
-        starAlpha[i] = starAlpha[i] < 1 ? starAlpha[i] + starRate[i] : starAlpha[i];
+
+        if (starAlpha[i] < starMaxAlpha[i]) {
+            starAlpha[i] *= 1 + starRate[i] * .5;
+        }
 
         if (starDis[i] > WIDTH) {
             resetStar(i);
@@ -64,6 +67,7 @@ function update() {
 
 function render(c) {
 
+    c.globalAlpha = .4;
     c.fillStyle = "black";
     c.fillRect(0, 0, WIDTH, HEIGHT);
     c.fillStyle = "white";
@@ -88,9 +92,9 @@ function render(c) {
 function resetStar(i) {
 
     starDis[i] = Math.random() * WIDTH;
-    starRadius[i] = 0.1;
+    starRadius[i] = Math.random();
     starAngle[i] = Math.random() * Math.PI * 2;
-    starRate[i] = Math.random() * maxStarRate;
-    starAlpha[i] = 0;
-
+    starRate[i] = Math.random() * .0075;
+    starAlpha[i] = .025;
+    starMaxAlpha[i] = Math.random() * .75;
 }
