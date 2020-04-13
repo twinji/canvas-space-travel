@@ -45,20 +45,20 @@ function init(c) {
     for (var i = 0; i < starCount; i++) {
         resetStar(i);
     }
-
 }
 
 function update() {
 
     for (var i = 0; i < starCount; i++) {
  
+        // update star attributes
         starRadius[i] *= 1 + starRate[i] * .001;
         starDis[i] *= 1 + starRate[i];
-
         if (starAlpha[i] < starMaxAlpha[i]) {
             starAlpha[i] *= 1 + starRate[i] * .5;
         }
 
+        // reset star on exit
         if (starDis[i] > WIDTH) {
             resetStar(i);
         }
@@ -67,11 +67,13 @@ function update() {
 
 function render(c) {
 
+    // draw background
     c.globalAlpha = .4;
     c.fillStyle = "black";
     c.fillRect(0, 0, WIDTH, HEIGHT);
-    c.fillStyle = "white";
 
+    // draw stars
+    c.fillStyle = "white";
     for (var i = 0; i < starCount; i++) {
         c.globalAlpha = starAlpha[i];
         c.beginPath();
@@ -86,11 +88,11 @@ function render(c) {
         c.fill();
         c.globalAlpha = 1;
     }
-
 }
 
 function resetStar(i) {
 
+    // reset star attributes
     starDis[i] = Math.random() * WIDTH;
     starRadius[i] = Math.random();
     starAngle[i] = Math.random() * Math.PI * 2;
