@@ -68,7 +68,7 @@ function update() {
 function render(c) {
 
     // draw background
-    c.globalAlpha = .4;
+    c.globalAlpha = .7;
     c.fillStyle = "black";
     c.fillRect(0, 0, WIDTH, HEIGHT);
 
@@ -96,7 +96,7 @@ function resetStar(i) {
     starDis[i] = Math.random() * WIDTH;
     starRadius[i] = Math.random();
     starAngle[i] = Math.random() * Math.PI * 2;
-    starRate[i] = Math.random() * .025;
-    starAlpha[i] = .025;
+    starRate[i] = Math.random() * .05;
+    starAlpha[i] = .035;
     starMaxAlpha[i] = Math.random() * .95;
 }
